@@ -191,7 +191,7 @@ const ProofUploads = () => {
                   className="download-cert-btn"
                   onClick={() =>
                     window.open(
-                      `http://localhost:8080/api/certificates/download/${proof.certificateId}`,
+                      `${import.meta.env.VITE_API_BASE_URL}/api/certificates/download/${proof.certificateId}`,
                       "_blank"
                     )
                   }

@@ -98,7 +98,7 @@ public class ProofService {
         Files.createDirectories(filePath.getParent());
         Files.write(filePath, file.getBytes());
 
-        String fullUrl = "http://localhost:8080/uploads/" + fileName;
+        String fullUrl = "https://volunteerportal-production-54b6.up.railway.app/uploads/" + fileName;
         Proof proof = new Proof(user, event, fullUrl);
         return convertToDto(proofRepository.save(proof));
     }
