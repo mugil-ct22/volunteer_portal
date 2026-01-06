@@ -14,7 +14,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/proof")
-@CrossOrigin(origins = {"http://localhost:5173", "http://localhost:5174", "http://localhost:5175", "https://volunteer-portal-chi.vercel.app"})
+
 public class ProofController {
 
     @Autowired
