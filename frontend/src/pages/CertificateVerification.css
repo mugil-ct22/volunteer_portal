@@ -1,0 +1,349 @@
+/* ===============================
+   GLOBAL LAYOUT
+================================ */
+
+.admin-proof-approval {
+  min-height: 100vh;
+  background: #f8fafc;
+}
+
+.proof-approval-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 32px 20px 60px;
+  font-family: "Inter", sans-serif;
+}
+
+/* ===============================
+   HEADER
+================================ */
+
+.approval-header {
+  margin-bottom: 32px;
+}
+
+.approval-header h1 {
+  font-size: 2.4rem;
+  font-weight: 700;
+  color: #111827;
+  margin-bottom: 6px;
+}
+
+.approval-header p {
+  color: #6b7280;
+  font-size: 1.05rem;
+}
+
+.pending-badge {
+  display: inline-block;
+  margin-top: 12px;
+  background: #fff7ed;
+  color: #b45309;
+  padding: 6px 14px;
+  border-radius: 999px;
+  font-weight: 600;
+  font-size: 0.9rem;
+}
+
+/* ===============================
+   FILTER BUTTONS
+================================ */
+
+.filter-section {
+  margin-bottom: 28px;
+}
+
+.filter-buttons {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.filter-btn {
+  padding: 8px 18px;
+  border-radius: 999px;
+  border: 1px solid #e5e7eb;
+  background: white;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.25s ease;
+}
+
+.filter-btn:hover {
+  background: #f1f5f9;
+}
+
+.filter-btn.active {
+  background: #4f46e5;
+  color: white;
+  border-color: #4f46e5;
+}
+
+/* ===============================
+   PROOF LIST
+================================ */
+
+.proofs-list {
+  display: flex;
+  flex-direction: column;
+  gap: 22px;
+}
+
+.proof-item {
+  background: white;
+  border-radius: 16px;
+  padding: 22px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.04);
+  border: 1px solid #e5e7eb;
+}
+
+/* ===============================
+   PROOF CONTENT
+================================ */
+
+.proof-content {
+  display: flex;
+  justify-content: space-between;
+  gap: 24px;
+  flex-wrap: wrap;
+}
+
+.proof-info h4 {
+  font-size: 1.2rem;
+  font-weight: 700;
+  margin-bottom: 8px;
+  color: #111827;
+}
+
+.proof-meta {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  font-size: 0.9rem;
+  color: #6b7280;
+}
+
+.proof-link-container {
+  margin-top: 12px;
+}
+
+.proof-link {
+  text-decoration: none;
+  font-weight: 600;
+  color: #2563eb;
+}
+
+.proof-link:hover {
+  text-decoration: underline;
+}
+
+/* ===============================
+   STATUS
+================================ */
+
+.proof-status {
+  text-align: right;
+}
+
+.status-badge {
+  padding: 6px 14px;
+  border-radius: 999px;
+  font-size: 0.85rem;
+  font-weight: 700;
+}
+
+.status-badge--approved {
+  background: #dcfce7;
+  color: #166534;
+}
+
+.status-badge--rejected {
+  background: #fee2e2;
+  color: #991b1b;
+}
+
+.status-badge--pending {
+  background: #fff7ed;
+  color: #b45309;
+}
+
+.points-awarded {
+  margin-top: 8px;
+  font-weight: 700;
+  color: #16a34a;
+}
+
+/* ===============================
+   REJECTION BOX
+================================ */
+
+.rejection-box {
+  margin-top: 14px;
+  background: #fff1f2;
+  border-left: 4px solid #ef4444;
+  padding: 12px 16px;
+  border-radius: 8px;
+  font-size: 0.95rem;
+}
+
+/* ===============================
+   ACTION BUTTONS
+================================ */
+
+.proof-actions {
+  display: flex;
+  gap: 14px;
+  margin-top: 18px;
+  flex-wrap: wrap;
+}
+
+/* Base button */
+.btn {
+  border: none;
+  border-radius: 10px;
+  padding: 10px 18px;
+  font-weight: 600;
+  font-size: 0.95rem;
+  cursor: pointer;
+  transition: all 0.25s ease;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+/* Approve */
+.btn--success {
+  background: linear-gradient(135deg, #22c55e, #16a34a);
+  color: white;
+}
+
+.btn--success:hover {
+  transform: translateY(-2px);
+}
+
+/* Reject */
+.btn--danger {
+  background: linear-gradient(135deg, #ef4444, #dc2626);
+  color: white;
+}
+
+.btn--danger:hover {
+  transform: translateY(-2px);
+}
+
+/* Download */
+.btn--primary {
+  background: linear-gradient(135deg, #4f46e5, #4338ca);
+  color: white;
+}
+
+.btn--primary:hover {
+  transform: translateY(-2px);
+}
+
+/* ===============================
+   REGENERATE BUTTON
+================================ */
+
+.btn--secondary {
+  background: linear-gradient(135deg, #fbbf24, #f59e0b);
+  color: #1f2937;
+  box-shadow: 0 6px 14px rgba(245, 158, 11, 0.25);
+}
+
+.btn--secondary:hover {
+  background: linear-gradient(135deg, #f59e0b, #d97706);
+  transform: translateY(-2px);
+}
+
+/* Disabled */
+.btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: none;
+}
+
+/* ===============================
+   LOADING STATE
+================================ */
+
+.btn--loading {
+  pointer-events: none;
+  opacity: 0.7;
+}
+
+.spinner {
+  width: 16px;
+  height: 16px;
+  border: 2px solid rgba(0, 0, 0, 0.3);
+  border-top-color: #111827;
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* ===============================
+   EMPTY / LOADING / ERROR
+================================ */
+
+.no-proofs,
+.loading-container,
+.error-container {
+  text-align: center;
+  padding: 60px 20px;
+  color: #6b7280;
+}
+
+.loading-spinner {
+  width: 36px;
+  height: 36px;
+  border: 4px solid #e5e7eb;
+  border-top-color: #4f46e5;
+  border-radius: 50%;
+  margin: 0 auto 16px;
+  animation: spin 1s linear infinite;
+}
+
+/* ===============================
+   FOOTER SUMMARY
+================================ */
+
+.approval-footer {
+  margin-top: 48px;
+}
+
+.stats-summary h3 {
+  font-size: 1.4rem;
+  margin-bottom: 16px;
+}
+
+.summary-stats {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+  gap: 18px;
+}
+
+.stat-item {
+  background: white;
+  padding: 18px;
+  border-radius: 14px;
+  text-align: center;
+  border: 1px solid #e5e7eb;
+}
+
+.stat-number {
+  font-size: 1.8rem;
+  font-weight: 800;
+  color: #111827;
+}
+
+.stat-label {
+  font-size: 0.9rem;
+  color: #6b7280;
+}
