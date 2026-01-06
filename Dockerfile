@@ -1,30 +1,18 @@
-# Build stage
-FROM maven:3.9-openjdk-17-slim AS build
+# ================= BUILD STAGE =================
+FROM maven:3.9.6-eclipse-temurin-17 AS build
 
-# Set working directory
 WORKDIR /app
+COPY backend/pom.xml .
+RUN mvn dependency:go-offline
 
-# Copy pom.xml and download dependencies
-COPY backend/pom.xml ./
-RUN mvn dependency:go-offline -B
-
-# Copy source code
 COPY backend/src ./src
-
-# Build the application
 RUN mvn clean package -DskipTests
 
-# Runtime stage
-FROM openjdk:17-jre-slim
+# ================= RUN STAGE =================
+FROM eclipse-temurin:17-jre
 
-# Set working directory
 WORKDIR /app
+COPY --from=build /app/target/*.jar app.jar
 
-# Copy the JAR from build stage
-COPY --from=build /app/target/volunteer-portal-1.0.0.jar ./app.jar
-
-# Expose port 8080
 EXPOSE 8080
-
-# Run the application
-CMD ["java", "-jar", "app.jar"]
+ENTRYPOINT ["java","-jar","app.jar"]
