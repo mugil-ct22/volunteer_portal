@@ -1,349 +1,183 @@
 import api from '../api/axiosConfig';
 
-// Authentication API
+/* =====================================================
+   AUTH API
+===================================================== */
 export const authAPI = {
   login: async (usernameOrEmail, password) => {
-    try {
-      const response = await api.post('/api/auth/login', { username: usernameOrEmail, password });
-      return response.data;
-    } catch (error) {
-      throw new Error(error.response?.data?.message || 'Login failed');
-    }
+    const response = await api.post('/auth/login', {
+      username: usernameOrEmail,
+      password,
+    });
+    return response.data;
   },
 
   register: async (userData) => {
-    try {
-      console.log('API Register - Sending data:', userData);
-      console.log('API Register - URL:', '/api/auth/register');
-      const response = await api.post('/api/auth/register', userData);
-      console.log('API Register - Response:', response.data);
-      return response.data;
-    } catch (error) {
-      console.error('API Register - Error:', error);
-      console.error('API Register - Error response:', error.response);
-      throw new Error(error.response?.data?.message || 'Registration failed');
-    }
+    const response = await api.post('/auth/register', userData);
+    return response.data;
   }
 };
 
-// Events API
+/* =====================================================
+   EVENTS API
+===================================================== */
 export const eventsAPI = {
-  getAllEvents: async () => {
-    try {
-      const response = await api.get('/api/events');
-      return response.data;
-    } catch (error) {
-      throw new Error(error.response?.data?.message || 'Failed to fetch events');
-    }
-  },
+  getAllEvents: async () =>
+    (await api.get('/events')).data,
 
-  getEventsByCategory: async (category) => {
-    try {
-      const response = await api.get(`/api/events/category/${encodeURIComponent(category)}`);
-      return response.data;
-    } catch (error) {
-      throw new Error(error.response?.data?.message || 'Failed to fetch events by category');
-    }
-  },
+  getEventsByCategory: async (category) =>
+    (await api.get(`/events/category/${encodeURIComponent(category)}`)).data,
 
-  getAllCategories: async () => {
-    try {
-      const response = await api.get('/api/events/categories');
-      return response.data;
-    } catch (error) {
-      throw new Error(error.response?.data?.message || 'Failed to fetch categories');
-    }
-  },
+  getAllCategories: async () =>
+    (await api.get('/events/categories')).data,
 
-  createEvent: async (eventData) => {
-    try {
-      const response = await api.post('/api/admin/events', eventData);
-      return response.data;
-    } catch (error) {
-      throw new Error(error.response?.data?.message || 'Failed to create event');
-    }
-  },
+  createEvent: async (eventData) =>
+    (await api.post('/admin/events', eventData)).data,
 
-  updateEvent: async (id, eventData) => {
-    try {
-      const response = await api.put(`/api/admin/events/${id}`, eventData);
-      return response.data;
-    } catch (error) {
-      throw new Error(error.response?.data?.message || 'Failed to update event');
-    }
-  },
+  updateEvent: async (id, eventData) =>
+    (await api.put(`/admin/events/${id}`, eventData)).data,
 
   deleteEvent: async (id) => {
-    try {
-      await api.delete(`/api/admin/events/${id}`);
-      return true;
-    } catch (error) {
-      throw new Error(error.response?.data?.message || 'Failed to delete event');
-    }
+    await api.delete(`/admin/events/${id}`);
+    return true;
   },
 
   registerForEvent: async (eventId) => {
-    try {
-      await api.post(`/api/events/register/${eventId}`);
-      return true;
-    } catch (error) {
-      throw new Error(error.response?.data?.message || 'Failed to register for event');
-    }
+    await api.post(`/events/register/${eventId}`);
+    return true;
   },
 
   unregisterFromEvent: async (eventId) => {
-    try {
-      await api.delete(`/api/events/unregister/${eventId}`);
-      return true;
-    } catch (error) {
-      throw new Error(error.response?.data?.message || 'Failed to unregister from event');
-    }
+    await api.delete(`/events/unregister/${eventId}`);
+    return true;
   },
 
-  getRegisteredEvents: async () => {
-    try {
-      const response = await api.get('/api/events/registered');
-      return response.data;
-    } catch (error) {
-      throw new Error(error.response?.data?.message || 'Failed to fetch registered events');
-    }
-  }
+  getRegisteredEvents: async () =>
+    (await api.get('/events/registered')).data
 };
 
-// Proofs API
+/* =====================================================
+   PROOFS API
+===================================================== */
 export const proofsAPI = {
-  getUserProofs: async () => {
-    const response = await api.get('/api/proof/user');
-    return response.data;
-  },
+  getUserProofs: async () =>
+    (await api.get('/proof/user')).data,
 
-  getAllProofs: async () => {
-    const response = await api.get('/api/admin/proofs');
-    return response.data;
-  },
+  getAllProofs: async () =>
+    (await api.get('/admin/proofs')).data,
 
   uploadProof: async (eventId, file) => {
     const formData = new FormData();
     formData.append('file', file);
 
     const response = await api.post(
-      `/api/proof/upload/${eventId}`,
+      `/proof/upload/${eventId}`,
       formData,
       { headers: { 'Content-Type': 'multipart/form-data' } }
     );
     return response.data;
   },
 
-  approveProof: async (proofId) => {
-    const response = await api.put(`/api/admin/proofs/${proofId}/approve`);
-    return response.data;
-  },
+  approveProof: async (proofId) =>
+    (await api.put(`/admin/proofs/${proofId}/approve`)).data,
 
-  rejectProof: async (proofId, reason) => {
-    const response = await api.put(`/api/admin/proofs/${proofId}/reject?reason=${encodeURIComponent(reason)}`);
-    return response.data;
-  },
+  rejectProof: async (proofId, reason) =>
+    (await api.put(`/admin/proofs/${proofId}/reject`, null, {
+      params: { reason }
+    })).data,
 
-  regenerateCertificate: async (proofId) => {
-    const response = await api.put(`/api/admin/proofs/${proofId}/regenerate-certificate`);
-    return response.data;
-  },
+  regenerateCertificate: async (proofId) =>
+    (await api.put(`/admin/proofs/${proofId}/regenerate-certificate`)).data,
 
-  deleteProof: async (proofId) => {
-    await api.delete(`/api/proof/${proofId}`);
-  }
+  deleteProof: async (proofId) =>
+    api.delete(`/proof/${proofId}`)
 };
 
-
-// Leaderboard API
+/* =====================================================
+   LEADERBOARD API
+===================================================== */
 export const leaderboardAPI = {
-  getLeaderboard: async () => {
-    try {
-      const response = await api.get('/api/leaderboard');
-      return response.data;
-    } catch (error) {
-      throw new Error(error.response?.data?.message || 'Failed to fetch leaderboard');
-    }
-  },
+  getLeaderboard: async () =>
+    (await api.get('/leaderboard')).data,
 
-  recalculatePoints: async () => {
-    try {
-      const response = await api.post('/api/leaderboard/recalculate');
-      return response.data;
-    } catch (error) {
-      throw new Error(error.response?.data?.message || 'Failed to recalculate points');
-    }
-  }
+  recalculatePoints: async () =>
+    (await api.post('/leaderboard/recalculate')).data
 };
 
-
-
-// Dashboard API
+/* =====================================================
+   DASHBOARD API
+===================================================== */
 export const dashboardAPI = {
-  getUserStats: async () => {
-    try {
-      const response = await api.get('/api/user/dashboard');
-      return response.data;
-    } catch (error) {
-      throw new Error(error.response?.data?.message || 'Failed to fetch user dashboard');
-    }
-  },
+  getUserStats: async () =>
+    (await api.get('/user/dashboard')).data,
 
-  getAdminStats: async () => {
-    try {
-      const response = await api.get('/api/admin/dashboard');
-      return response.data;
-    } catch (error) {
-      throw new Error(error.response?.data?.message || 'Failed to fetch admin dashboard');
-    }
-  }
+  getAdminStats: async () =>
+    (await api.get('/admin/dashboard')).data
 };
 
-// Notifications API
+/* =====================================================
+   NOTIFICATIONS API
+===================================================== */
 export const notificationsAPI = {
-  getNotificationsForUser: async (userId) => {
-    try {
-      const response = await api.get(`/api/notifications/user/${userId}`);
-      return response.data;
-    } catch (error) {
-      throw new Error(error.response?.data?.message || 'Failed to fetch notifications');
-    }
-  },
+  getNotificationsForUser: async (userId) =>
+    (await api.get(`/notifications/user/${userId}`)).data,
 
-  getUnreadNotificationsForUser: async (userId) => {
-    try {
-      const response = await api.get(`/api/notifications/user/${userId}/unread`);
-      return response.data;
-    } catch (error) {
-      throw new Error(error.response?.data?.message || 'Failed to fetch unread notifications');
-    }
-  },
+  getUnreadNotificationsForUser: async (userId) =>
+    (await api.get(`/notifications/user/${userId}/unread`)).data,
 
-  getUnreadNotificationCount: async (userId) => {
-    try {
-      const response = await api.get(`/api/notifications/user/${userId}/unread/count`);
-      return response.data;
-    } catch (error) {
-      throw new Error(error.response?.data?.message || 'Failed to fetch notification count');
-    }
-  },
+  getUnreadNotificationCount: async (userId) =>
+    (await api.get(`/notifications/user/${userId}/unread/count`)).data,
 
-  sendNotification: async (title, message, senderId, receiverId, notificationType) => {
-    try {
-      const response = await api.post('/api/notifications', null, {
-        params: { title, message, senderId, receiverId, notificationType }
-      });
-      return response.data;
-    } catch (error) {
-      throw new Error(error.response?.data?.message || 'Failed to send notification');
-    }
-  },
+  sendNotification: async (title, message, senderId, receiverId, notificationType) =>
+    (await api.post('/notifications', null, {
+      params: { title, message, senderId, receiverId, notificationType }
+    })).data,
 
-  markAsRead: async (notificationId, userId) => {
-    try {
-      await api.put(`/api/notifications/${notificationId}/read`, null, {
-        params: { userId }
-      });
-    } catch (error) {
-      throw new Error(error.response?.data?.message || 'Failed to mark notification as read');
-    }
-  },
+  markAsRead: async (notificationId, userId) =>
+    api.put(`/notifications/${notificationId}/read`, null, {
+      params: { userId }
+    }),
 
-  markAllAsRead: async (userId) => {
-    try {
-      await api.put(`/api/notifications/user/${userId}/read-all`);
-    } catch (error) {
-      throw new Error(error.response?.data?.message || 'Failed to mark all notifications as read');
-    }
-  },
+  markAllAsRead: async (userId) =>
+    api.put(`/notifications/user/${userId}/read-all`),
 
-  deleteNotification: async (notificationId, userId) => {
-    try {
-      await api.delete(`/api/notifications/${notificationId}`, {
-        params: { userId }
-      });
-    } catch (error) {
-      throw new Error(error.response?.data?.message || 'Failed to delete notification');
-    }
-  }
+  deleteNotification: async (notificationId, userId) =>
+    api.delete(`/notifications/${notificationId}`, {
+      params: { userId }
+    })
 };
 
-// Meetings API
+/* =====================================================
+   MEETINGS API
+===================================================== */
 export const meetingsAPI = {
-  getMeetingsForUser: async (userId) => {
-    try {
-      const response = await api.get(`/api/meetings/user/${userId}`);
-      return response.data;
-    } catch (error) {
-      throw new Error(error.response?.data?.message || 'Failed to fetch meetings');
-    }
-  },
+  getMeetingsForUser: async (userId) =>
+    (await api.get(`/meetings/user/${userId}`)).data,
 
-  getUpcomingMeetingsForUser: async (userId) => {
-    try {
-      const response = await api.get(`/api/meetings/user/${userId}/upcoming`);
-      return response.data;
-    } catch (error) {
-      throw new Error(error.response?.data?.message || 'Failed to fetch upcoming meetings');
-    }
-  },
+  getUpcomingMeetingsForUser: async (userId) =>
+    (await api.get(`/meetings/user/${userId}/upcoming`)).data,
 
-  createMeeting: async (title, description, meetingDate, durationMinutes, organizerId, participantId, meetingLink) => {
-    try {
-      const response = await api.post('/api/meetings', null, {
-        params: { title, description, meetingDate, durationMinutes, organizerId, participantId, meetingLink }
-      });
-      return response.data;
-    } catch (error) {
-      throw new Error(error.response?.data?.message || 'Failed to create meeting');
-    }
-  },
+  createMeeting: async (params) =>
+    (await api.post('/meetings', null, { params })).data,
 
-  updateMeeting: async (meetingId, title, description, meetingDate, durationMinutes, status, meetingLink, userId) => {
-    try {
-      const response = await api.put(`/api/meetings/${meetingId}`, null, {
-        params: { title, description, meetingDate, durationMinutes, status, meetingLink, userId }
-      });
-      return response.data;
-    } catch (error) {
-      throw new Error(error.response?.data?.message || 'Failed to update meeting');
-    }
-  },
+  updateMeeting: async (meetingId, params) =>
+    (await api.put(`/meetings/${meetingId}`, null, { params })).data,
 
-  deleteMeeting: async (meetingId, userId) => {
-    try {
-      await api.delete(`/api/meetings/${meetingId}`, {
-        params: { userId }
-      });
-    } catch (error) {
-      throw new Error(error.response?.data?.message || 'Failed to delete meeting');
-    }
-  },
+  deleteMeeting: async (meetingId, userId) =>
+    api.delete(`/meetings/${meetingId}`, { params: { userId } }),
 
-  respondToMeetingInvitation: async (meetingId, accepted, userId) => {
-    try {
-      const response = await api.put(`/api/meetings/${meetingId}/respond`, null, {
-        params: { accepted, userId }
-      });
-      return response.data;
-    } catch (error) {
-      throw new Error(error.response?.data?.message || 'Failed to respond to meeting invitation');
-    }
-  }
+  respondToMeetingInvitation: async (meetingId, accepted, userId) =>
+    (await api.put(`/meetings/${meetingId}/respond`, null, {
+      params: { accepted, userId }
+    })).data
 };
 
-// Users API
+/* =====================================================
+   USERS API
+===================================================== */
 export const usersAPI = {
-  getAllUsers: async () => {
-    try {
-      const response = await api.get('/api/admin/users');
-      return response.data;
-    } catch (error) {
-      throw new Error(error.response?.data?.message || 'Failed to fetch users');
-    }
-  }
+  getAllUsers: async () =>
+    (await api.get('/admin/users')).data
 };
-
-
 
 export default api;
