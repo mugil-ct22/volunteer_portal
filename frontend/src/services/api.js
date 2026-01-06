@@ -5,7 +5,7 @@ import api from '../api/axiosConfig';
 ===================================================== */
 export const authAPI = {
   login: async (usernameOrEmail, password) => {
-    const response = await api.post('/auth/login', {
+    const response = await api.post('/api/auth/login', {
       username: usernameOrEmail,
       password,
     });
@@ -13,7 +13,7 @@ export const authAPI = {
   },
 
   register: async (userData) => {
-    const response = await api.post('/auth/register', userData);
+    const response = await api.post('/api/auth/register', userData);
     return response.data;
   }
 };
@@ -23,37 +23,37 @@ export const authAPI = {
 ===================================================== */
 export const eventsAPI = {
   getAllEvents: async () =>
-    (await api.get('/events')).data,
+    (await api.get('/api/events')).data,
 
   getEventsByCategory: async (category) =>
-    (await api.get(`/events/category/${encodeURIComponent(category)}`)).data,
+    (await api.get(`/api/events/category/${encodeURIComponent(category)}`)).data,
 
   getAllCategories: async () =>
-    (await api.get('/events/categories')).data,
+    (await api.get('/api/events/categories')).data,
 
   createEvent: async (eventData) =>
-    (await api.post('/admin/events', eventData)).data,
+    (await api.post('/api/admin/events', eventData)).data,
 
   updateEvent: async (id, eventData) =>
-    (await api.put(`/admin/events/${id}`, eventData)).data,
+    (await api.put(`/api/admin/events/${id}`, eventData)).data,
 
   deleteEvent: async (id) => {
-    await api.delete(`/admin/events/${id}`);
+    await api.delete(`/api/admin/events/${id}`);
     return true;
   },
 
   registerForEvent: async (eventId) => {
-    await api.post(`/events/register/${eventId}`);
+    await api.post(`/api/events/register/${eventId}`);
     return true;
   },
 
   unregisterFromEvent: async (eventId) => {
-    await api.delete(`/events/unregister/${eventId}`);
+    await api.delete(`/api/events/unregister/${eventId}`);
     return true;
   },
 
   getRegisteredEvents: async () =>
-    (await api.get('/events/registered')).data
+    (await api.get('/api/events/registered')).data
 };
 
 /* =====================================================
@@ -61,17 +61,17 @@ export const eventsAPI = {
 ===================================================== */
 export const proofsAPI = {
   getUserProofs: async () =>
-    (await api.get('/proof/user')).data,
+    (await api.get('/api/proof/user')).data,
 
   getAllProofs: async () =>
-    (await api.get('/admin/proofs')).data,
+    (await api.get('/api/admin/proofs')).data,
 
   uploadProof: async (eventId, file) => {
     const formData = new FormData();
     formData.append('file', file);
 
     const response = await api.post(
-      `/proof/upload/${eventId}`,
+      `/api/proof/upload/${eventId}`,
       formData,
       { headers: { 'Content-Type': 'multipart/form-data' } }
     );
@@ -79,18 +79,18 @@ export const proofsAPI = {
   },
 
   approveProof: async (proofId) =>
-    (await api.put(`/admin/proofs/${proofId}/approve`)).data,
+    (await api.put(`/api/admin/proofs/${proofId}/approve`)).data,
 
   rejectProof: async (proofId, reason) =>
-    (await api.put(`/admin/proofs/${proofId}/reject`, null, {
+    (await api.put(`/api/admin/proofs/${proofId}/reject`, null, {
       params: { reason }
     })).data,
 
   regenerateCertificate: async (proofId) =>
-    (await api.put(`/admin/proofs/${proofId}/regenerate-certificate`)).data,
+    (await api.put(`/api/admin/proofs/${proofId}/regenerate-certificate`)).data,
 
   deleteProof: async (proofId) =>
-    api.delete(`/proof/${proofId}`)
+    api.delete(`/api/proof/${proofId}`)
 };
 
 /* =====================================================
@@ -98,10 +98,10 @@ export const proofsAPI = {
 ===================================================== */
 export const leaderboardAPI = {
   getLeaderboard: async () =>
-    (await api.get('/leaderboard')).data,
+    (await api.get('/api/leaderboard')).data,
 
   recalculatePoints: async () =>
-    (await api.post('/leaderboard/recalculate')).data
+    (await api.post('/api/leaderboard/recalculate')).data
 };
 
 /* =====================================================
@@ -109,10 +109,10 @@ export const leaderboardAPI = {
 ===================================================== */
 export const dashboardAPI = {
   getUserStats: async () =>
-    (await api.get('/user/dashboard')).data,
+    (await api.get('/api/user/dashboard')).data,
 
   getAdminStats: async () =>
-    (await api.get('/admin/dashboard')).data
+    (await api.get('/api/admin/dashboard')).data
 };
 
 /* =====================================================
@@ -120,29 +120,29 @@ export const dashboardAPI = {
 ===================================================== */
 export const notificationsAPI = {
   getNotificationsForUser: async (userId) =>
-    (await api.get(`/notifications/user/${userId}`)).data,
+    (await api.get(`/api/notifications/user/${userId}`)).data,
 
   getUnreadNotificationsForUser: async (userId) =>
-    (await api.get(`/notifications/user/${userId}/unread`)).data,
+    (await api.get(`/api/notifications/user/${userId}/unread`)).data,
 
   getUnreadNotificationCount: async (userId) =>
-    (await api.get(`/notifications/user/${userId}/unread/count`)).data,
+    (await api.get(`/api/notifications/user/${userId}/unread/count`)).data,
 
   sendNotification: async (title, message, senderId, receiverId, notificationType) =>
-    (await api.post('/notifications', null, {
+    (await api.post('/api/notifications', null, {
       params: { title, message, senderId, receiverId, notificationType }
     })).data,
 
   markAsRead: async (notificationId, userId) =>
-    api.put(`/notifications/${notificationId}/read`, null, {
+    api.put(`/api/notifications/${notificationId}/read`, null, {
       params: { userId }
     }),
 
   markAllAsRead: async (userId) =>
-    api.put(`/notifications/user/${userId}/read-all`),
+    api.put(`/api/notifications/user/${userId}/read-all`),
 
   deleteNotification: async (notificationId, userId) =>
-    api.delete(`/notifications/${notificationId}`, {
+    api.delete(`/api/notifications/${notificationId}`, {
       params: { userId }
     })
 };
@@ -152,22 +152,22 @@ export const notificationsAPI = {
 ===================================================== */
 export const meetingsAPI = {
   getMeetingsForUser: async (userId) =>
-    (await api.get(`/meetings/user/${userId}`)).data,
+    (await api.get(`/api/meetings/user/${userId}`)).data,
 
   getUpcomingMeetingsForUser: async (userId) =>
-    (await api.get(`/meetings/user/${userId}/upcoming`)).data,
+    (await api.get(`/api/meetings/user/${userId}/upcoming`)).data,
 
   createMeeting: async (params) =>
-    (await api.post('/meetings', null, { params })).data,
+    (await api.post('/api/meetings', null, { params })).data,
 
   updateMeeting: async (meetingId, params) =>
-    (await api.put(`/meetings/${meetingId}`, null, { params })).data,
+    (await api.put(`/api/meetings/${meetingId}`, null, { params })).data,
 
   deleteMeeting: async (meetingId, userId) =>
-    api.delete(`/meetings/${meetingId}`, { params: { userId } }),
+    api.delete(`/api/meetings/${meetingId}`, { params: { userId } }),
 
   respondToMeetingInvitation: async (meetingId, accepted, userId) =>
-    (await api.put(`/meetings/${meetingId}/respond`, null, {
+    (await api.put(`/api/meetings/${meetingId}/respond`, null, {
       params: { accepted, userId }
     })).data
 };
@@ -177,7 +177,7 @@ export const meetingsAPI = {
 ===================================================== */
 export const usersAPI = {
   getAllUsers: async () =>
-    (await api.get('/admin/users')).data
+    (await api.get('/api/admin/users')).data
 };
 
 export default api;
