@@ -13,11 +13,14 @@ import com.volunteer.portal.repository.CertificateRepository;
 import com.lowagie.text.*;
 import com.lowagie.text.pdf.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.ClassPathResource;
 import org.springframework.stereotype.Service;
 
 import java.awt.Color;
+import java.io.ByteArrayOutputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -79,6 +82,21 @@ public class CertificateService {
 
         MatrixToImageWriter.writeToPath(matrix, "PNG", path);
         return fileName;
+    }
+
+    /* =====================================================
+       HELPER: Load image from classpath (works in JAR)
+    ===================================================== */
+    private Image loadImageFromClasspath(String resourceName) throws IOException {
+        ClassPathResource resource = new ClassPathResource(resourceName);
+        InputStream is = resource.getInputStream();
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        byte[] buffer = new byte[1024];
+        int bytesRead;
+        while ((bytesRead = is.read(buffer)) != -1) {
+            baos.write(buffer, 0, bytesRead);
+        }
+        return Image.getInstance(baos.toByteArray());
     }
 
     /* =====================================================
@@ -213,14 +231,10 @@ public class CertificateService {
         signTable.setWidthPercentage(70);
         signTable.setHorizontalAlignment(Element.ALIGN_CENTER);
 
-        Image signature = Image.getInstance(
-                "src/main/resources/signature1.png"
-        );
+        Image signature = loadImageFromClasspath("signature1.png");
         signature.scaleToFit(120, 60);
 
-        Image seal = Image.getInstance(
-                "src/main/resources/seal1.png"
-        );
+        Image seal = loadImageFromClasspath("seal1.png");
         seal.scaleToFit(80, 80);
 
         PdfPCell signCell = new PdfPCell(signature);
