@@ -36,6 +36,17 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
     @Override
     protected void doFilterInternal(@NonNull HttpServletRequest request, @NonNull HttpServletResponse response, @NonNull FilterChain filterChain) throws ServletException, IOException {
+        // Handle CORS preflight requests
+        if ("OPTIONS".equalsIgnoreCase(request.getMethod())) {
+            response.setHeader("Access-Control-Allow-Origin", "https://volunteer-portal-chi.vercel.app");
+            response.setHeader("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS, PATCH");
+            response.setHeader("Access-Control-Allow-Headers", "*");
+            response.setHeader("Access-Control-Allow-Credentials", "true");
+            response.setHeader("Access-Control-Max-Age", "3600");
+            response.setStatus(HttpServletResponse.SC_OK);
+            return;
+        }
+
         try {
             final String authorizationHeader = request.getHeader("Authorization");
 
@@ -77,6 +88,10 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
             // Any unexpected error in JWT processing - log and continue
             logger.error("Unexpected error in JWT authentication filter: " + e.getMessage());
         }
+
+        // Add CORS headers to all responses
+        response.setHeader("Access-Control-Allow-Origin", "https://volunteer-portal-chi.vercel.app");
+        response.setHeader("Access-Control-Allow-Credentials", "true");
 
         filterChain.doFilter(request, response);
     }
