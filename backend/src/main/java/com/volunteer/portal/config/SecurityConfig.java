@@ -45,12 +45,9 @@ public class SecurityConfig {
     @Bean
     public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();
-        configuration.setAllowedOrigins(Arrays.asList(
-            "https://volunteer-portal-chi.vercel.app",
-            "http://localhost:5173",
-            "http://localhost:5174",
-            "http://localhost:5175"
-        ));
+        // Use the allowedOrigins from application.properties
+        String[] origins = allowedOrigins != null ? allowedOrigins.split(",") : new String[]{};
+        configuration.setAllowedOrigins(Arrays.asList(origins));
         configuration.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE", "OPTIONS", "PATCH"));
         configuration.setAllowedHeaders(Arrays.asList("*"));
         configuration.setExposedHeaders(Arrays.asList("Authorization", "Content-Type"));
@@ -85,3 +82,4 @@ public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 }
 
 }
+
