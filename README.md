@@ -72,7 +72,8 @@ A modern **Volunteer Management System** built using **React (Vite)** and **Spri
 ---
 
 ## 📁 Project Structure
-volunteer-portal/
+```text
+volunteer_portal/
 │
 ├── frontend/
 │   ├── public/
@@ -82,6 +83,7 @@ volunteer-portal/
 │   │   ├── services/
 │   │   ├── App.jsx
 │   │   └── main.jsx
+│   │
 │   ├── vercel.json
 │   └── package.json
 │
@@ -92,13 +94,13 @@ volunteer-portal/
 │   │   ├── repository/
 │   │   ├── security/
 │   │   └── config/
+│   │
 │   ├── src/main/resources/
 │   │   └── application.properties
+│   │
 │   └── Dockerfile
 │
 └── README.md
-
----
 
 ## 🚀 Deployment Overview
 
