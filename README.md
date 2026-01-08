@@ -1,47 +1,47 @@
 # 🚀 Volunteer Portal – Full Stack Web Application
 
-A modern **Volunteer Management System** built using **React (Vite)** and **Spring Boot**, featuring secure authentication, role-based access control, and cloud deployment.
+A modern **Volunteer Management System** developed using **React (Vite)** and **Spring Boot**, designed with secure authentication, role-based access control, and cloud-native deployment.
 
----
+
 
 ## 🌐 Live Deployment
 
-- **Frontend (Vercel)**  
-  👉 https://volunteer-portal-chi.vercel.app
+### 🔹 Frontend (Vercel)
+👉 https://volunteer-portal-chi.vercel.app
 
-- **Backend (Railway)**  
-  👉 https://volunteerportal-production-54b6.up.railway.app
+### 🔹 Backend (Railway)
+👉 https://volunteerportal-production-54b6.up.railway.app
 
----
 
-## ✨ Key Features
+
+## ✨ Features
 
 ### 🔐 Authentication & Security
 - JWT-based authentication
-- Role-based authorization (Admin / User)
-- BCrypt password hashing
-- Stateless REST APIs
+- Role-based access control (Admin / User)
+- BCrypt password encryption
+- Stateless REST APIs using Spring Security
 
 ### 👤 Volunteer Module
-- User registration & login
-- Protected dashboard
+- User registration and login
+- Secure volunteer dashboard
 - Event participation
-- Certificate download
+- Certificate generation and download
 
 ### 🛡 Admin Module
-- Admin-only secured APIs
-- Volunteer & certificate management
-- Backend access control
+- Admin-restricted APIs
+- Volunteer and certificate management
+- Secure backend access
 
-### 🎨 Frontend
-- React SPA with Vite
-- Axios with environment-based API URLs
-- Client-side routing
-- Page refresh routing fixed (Vercel rewrite)
+### 🎨 Frontend Capabilities
+- React SPA built with Vite
+- Axios configured using environment variables
+- Client-side routing with React Router
+- Page refresh routing fixed using Vercel rewrites
 
----
 
-## 🛠 Tech Stack
+
+## 🛠 Technology Stack
 
 ### Frontend
 - React (Vite)
@@ -53,25 +53,26 @@ A modern **Volunteer Management System** built using **React (Vite)** and **Spri
 - Spring Boot 3
 - Spring Security 6
 - JWT Authentication
-- Hibernate / JPA
-- Deployed on **Railway**
+- Hibernate & JPA
+- Dockerized deployment on **Railway**
 
 ### Database
 - MySQL (Railway managed)
 
----
+
 
 ## 🔐 CORS & Security Configuration
 
-- Global CORS enabled using Spring Security
-- Requests allowed only from production frontend
-- All HTTP methods supported
-- Preflight requests cached
-- Credentials securely handled
+- Global CORS configuration using Spring Security
+- Requests restricted to production frontend URL
+- Supports all HTTP methods
+- Preflight requests cached for performance
+- Secure credential handling
 
----
+
 
 ## 📁 Project Structure
+
 ```text
 volunteer_portal/
 │
@@ -101,52 +102,3 @@ volunteer_portal/
 │   └── Dockerfile
 │
 └── README.md
-
-## 🚀 Deployment Overview
-
-### Frontend
-- Deployed on Vercel
-- SPA routing handled using `vercel.json`
-- Auto redeploy on Git push
-
-### Backend
-- Docker-based Spring Boot service
-- Environment-variable driven configuration
-- Persistent MySQL database
-- Hosted on Railway
-
----
-
-## ✅ Production Status
-
-✔ Backend running successfully  
-✔ Database connected  
-✔ CORS issues resolved  
-✔ SPA refresh issue fixed  
-✔ Secure API communication  
-
----
-
-## 📘 Learning Outcomes
-
-- Full-stack application development
-- JWT authentication & Spring Security
-- CORS debugging and deployment fixes
-- Cloud deployment (Vercel & Railway)
-- Environment-based configuration
-
----
-
-## 📄 License
-
-This project is developed for **educational and academic purposes**.
-
----
-
-## ⭐ Support
-
-If you found this project useful, please ⭐ the repository.
-
----
-
-**Developed using React & Spring Boot**
