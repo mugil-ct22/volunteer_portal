@@ -116,63 +116,6 @@ export const dashboardAPI = {
 };
 
 /* =====================================================
-   NOTIFICATIONS API
-===================================================== */
-export const notificationsAPI = {
-  getNotificationsForUser: async (userId) =>
-    (await api.get(`/api/notifications/user/${userId}`)).data,
-
-  getUnreadNotificationsForUser: async (userId) =>
-    (await api.get(`/api/notifications/user/${userId}/unread`)).data,
-
-  getUnreadNotificationCount: async (userId) =>
-    (await api.get(`/api/notifications/user/${userId}/unread/count`)).data,
-
-  sendNotification: async (title, message, senderId, receiverId, notificationType) =>
-    (await api.post('/api/notifications', null, {
-      params: { title, message, senderId, receiverId, notificationType }
-    })).data,
-
-  markAsRead: async (notificationId, userId) =>
-    api.put(`/api/notifications/${notificationId}/read`, null, {
-      params: { userId }
-    }),
-
-  markAllAsRead: async (userId) =>
-    api.put(`/api/notifications/user/${userId}/read-all`),
-
-  deleteNotification: async (notificationId, userId) =>
-    api.delete(`/api/notifications/${notificationId}`, {
-      params: { userId }
-    })
-};
-
-/* =====================================================
-   MEETINGS API
-===================================================== */
-export const meetingsAPI = {
-  getMeetingsForUser: async (userId) =>
-    (await api.get(`/api/meetings/user/${userId}`)).data,
-
-  getUpcomingMeetingsForUser: async (userId) =>
-    (await api.get(`/api/meetings/user/${userId}/upcoming`)).data,
-
-  createMeeting: async (params) =>
-    (await api.post('/api/meetings', null, { params })).data,
-
-  updateMeeting: async (meetingId, params) =>
-    (await api.put(`/api/meetings/${meetingId}`, null, { params })).data,
-
-  deleteMeeting: async (meetingId, userId) =>
-    api.delete(`/api/meetings/${meetingId}`, { params: { userId } }),
-
-  respondToMeetingInvitation: async (meetingId, accepted, userId) =>
-    (await api.put(`/api/meetings/${meetingId}/respond`, null, {
-      params: { accepted, userId }
-    })).data
-};
-
-/* =====================================================
    USERS API
 ===================================================== */
 export const usersAPI = {
