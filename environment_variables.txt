@@ -1,0 +1,28 @@
+# Render Environment Variables (Backend)
+# Copy these to Render environment variables section
+
+DB_HOST=mysql-10ce491a-mugilanalagiri-153e.d.aivencloud.com
+DB_PORT=14944
+DB_NAME=defaultdb
+DB_USER=avnadmin
+DB_PASSWORD=YOUR_AIVEN_PASSWORD_HERE
+JWT_SECRET=volunteerPortalJwtSecretKey_2026_secure_long
+JWT_EXPIRATION=86400000
+
+# Vercel Environment Variables (Frontend)
+# Set VITE_API_BASE_URL=https://volunteer-portal-skeu.onrender.com in Vercel dashboard
+
+# Production URLs
+Frontend: https://volunteer-portal-chi.vercel.app
+Backend: https://volunteer-portal-skeu.onrender.com
+
+# Old Railway variables (for reference)
+MYSQL_DATABASE="railway"
+MYSQL_PUBLIC_URL="mysql://root:bpODfUueoTizUwcpHTExXUeRzHbfozrP@tramway.proxy.rlwy.net:27200/railway"
+MYSQL_ROOT_PASSWORD="bpODfUueoTizUwcpHTExXUeRzHbfozrP"
+MYSQL_URL="mysql://root:bpODfUueoTizUwcpHTExXUeRzHbfozrP@mysql.railway.internal:3306/railway"
+MYSQLDATABASE="railway"
+MYSQLHOST="mysql.railway.internal"
+MYSQLPASSWORD="bpODfUueoTizUwcpHTExXUeRzHbfozrP"
+MYSQLPORT="3306"
+MYSQLUSER="root"
