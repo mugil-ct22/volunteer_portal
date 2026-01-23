@@ -9,8 +9,8 @@ A modern **Volunteer Management System** developed using **React (Vite)** and **
 ### 🔹 Frontend (Vercel)
 👉 https://volunteer-portal-chi.vercel.app
 
-### 🔹 Backend (Railway)
-👉 https://volunteerportal-production-54b6.up.railway.app
+### 🔹 Backend (Render)
+👉 https://volunteer-portal-skeu.onrender.com
 
 
 
@@ -54,10 +54,10 @@ A modern **Volunteer Management System** developed using **React (Vite)** and **
 - Spring Security 6
 - JWT Authentication
 - Hibernate & JPA
-- Dockerized deployment on **Railway**
+- Dockerized deployment on **Render**
 
 ### Database
-- MySQL (Railway managed)
+- MySQL (Aiven Cloud managed)
 
 
 
